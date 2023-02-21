@@ -1,6 +1,6 @@
 klasa = [
     ("Alicja Kozlowska", 1987),
-    ("Wiesław Kowalski", 1986),
+    ("Wieslaw Kowalski", 1986),
     ("Tomasz Kanarek", 1981),
     ("Janusz Mock", 1956),
     ("Urszula Urban", 1982)
@@ -14,5 +14,6 @@ for person, year in klasa:
 
 # zapis do pliku
 
-with open("plik.txt", "w") as plik:
-    plik.write("test 123")
+with open("pliki/plik.txt", "w") as plik:
+    for person in klasa:
+        plik.write(str(person) + chr(10))

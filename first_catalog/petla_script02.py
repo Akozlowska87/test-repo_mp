@@ -1,4 +1,5 @@
 #petla iteracyjna + iterables
+
 imie = "Alicja"
 wiek = 36
 lista_02 = [51, 73, 68, 93, 113]
@@ -12,5 +13,10 @@ for element in lista:
         print(f"Teraz lista wewnętrza - {element}")
         for innyelement in element:
             print(f"Litera wewnetrzna to {chr(innyelement)}")
+    elif isinstance(element, str):
+        print(f"Teraz string - {element}")
+        for innyelement in element:
+            print(f"{innyelement=}")
+            print(f"Litera wewnętrzna ma kod {ord(innyelement)}")
     else:
         print("ERROR")

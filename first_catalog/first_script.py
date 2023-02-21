@@ -10,5 +10,3 @@ elif my_age < 0:
     print("ERROR")
 else:
     print("You aren't young")
-
-#https://www.codium.ai/ - testy

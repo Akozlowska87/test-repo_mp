@@ -3,6 +3,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+first_catalog/pliki/pliki_generowne
+
 # C extensions
 *.so
 

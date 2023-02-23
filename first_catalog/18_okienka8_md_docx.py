@@ -48,6 +48,7 @@ def generuj_dokument(code, start_date, end_date=TODAY_ISO):
     return token
 
 def test_inna():
+    # https://stackoverflow.com/questions/16511337/correct-way-to-try-except-using-python-requests-module
     try:
         nbp_test = requests.get(NBP_URL)
         status_nbp = nbp_test.status_code
@@ -63,8 +64,15 @@ def test_inna():
     else:
         sg.Popup(f"Brak internetu - zweryfikuja połączenie {NBP_URL}- code: {status_nbp}")
 
-def tworz_docx(plik_md):
-    pass
+def tworz_docx(token_plik):
+    os.chdir(TEMP_DIR+"/")
+    command = ["pandoc", "-o", f"{token_plik}.docx", f"{token_plik}.md"]
+    try:
+        subprocess.run(command, capture_output=True)
+        return True
+    except:
+        sg.popup_error("Zainstaluj pandoc")
+        return False
 
 #start aplikacji
 init_dir()
@@ -93,7 +101,11 @@ while True:
         waluta = values[0].upper()
         # https://docs.python.org/3/library/datetime.html#examples-of-usage-timedelta
         data_poczatkowa = TODAY - timedelta(int(values[1]))
-        generuj_dokument(waluta, data_poczatkowa.isoformat())
+        plik = generuj_dokument(waluta, data_poczatkowa.isoformat())
+        if tworz_docx(f"{plik}"):
+            sg.Popup(f"Plik {plik}.md przetowrzony na DOCX")
+        else:
+            sg.popup_error("Błąd")
 
     if event == "Inna":
         test_inna()

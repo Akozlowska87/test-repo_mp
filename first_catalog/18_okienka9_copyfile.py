@@ -7,6 +7,7 @@ import os
 from secrets import token_urlsafe
 from pathlib import Path
 from datetime import date, timedelta
+from shutil import copyfile
 import matplotlib.pyplot as plt
 
 TEMP_DIR = "pliki_tymczasowe"
@@ -65,15 +66,22 @@ def test_inna():
         sg.Popup(f"Brak internetu - zweryfikuja połączenie {NBP_URL}- code: {status_nbp}")
 
 def tworz_docx(token_plik):
-    os.chdir(TEMP_DIR+"/")
+
     command = ["pandoc", "-o", f"{token_plik}.docx", f"{token_plik}.md"]
     try:
+        os.chdir(TEMP_DIR + "/")
         efekt = subprocess.run(command, capture_output=True)
         print(efekt)
+        os.chdir("../")
         return True
     except:
         sg.popup_error("Zainstaluj pandoc")
         return False
+
+# mozna tak, ale można inaczej
+# def fl_copy(source_file, destination_file)
+#     ret = copyfile(source_file, destination_file)
+#     return ret
 
 #start aplikacji
 init_dir()
@@ -102,9 +110,15 @@ while True:
         waluta = values[0].upper()
         # https://docs.python.org/3/library/datetime.html#examples-of-usage-timedelta
         data_poczatkowa = TODAY - timedelta(int(values[1]))
-        plik = generuj_dokument(waluta, data_poczatkowa.isoformat())
+        data_poczatkowa_iso = data_poczatkowa.isoformat()
+        plik = generuj_dokument(waluta, data_poczatkowa_iso)
+        output_docx = f"Waluta_{waluta}_od_{data_poczatkowa_iso}_do_{TODAY_ISO}.docx"
         if tworz_docx(f"{plik}"):
             sg.Popup(f"Plik {plik}.md przetowrzony na DOCX")
+            try:
+                ret_copy = copyfile(f"{TEMP_DIR}/{plik}.docx", output_docx)
+            except Exception as e:
+                print(f"Copy error - {e}")
         else:
             sg.popup_error("Błąd")
 

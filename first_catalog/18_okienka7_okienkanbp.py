@@ -68,6 +68,7 @@ while True:
     if event == "OK":
         waluta = values[0].upper()
         # https://docs.python.org/3/library/datetime.html#examples-of-usage-timedelta
+
         data_poczatkowa = TODAY - timedelta(int(values[1]))
         generuj_dokument()
 

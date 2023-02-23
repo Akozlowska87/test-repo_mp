@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 
 first_catalog/pliki/pliki_generowne
+first_catalog/pliki_tymczasowe
 
 # C extensions
 *.so

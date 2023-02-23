@@ -23,10 +23,18 @@ def generuj_dokument():
         sg.Popup(e, title="ERROR")
 
 def test_inna():
-    nbp_test = requests.get(NBP_URL)
-    status_nbp = nbp_test.status_code
+    try:
+        nbp_test = requests.get(NBP_URL)
+        status_nbp = nbp_test.status_code
+    except Exception as e:
+        sg.Popup(f"Error-> {e} | status_code -> -999", title="ERROR")
+        status_nbp = -999
+
     if status_nbp == 200:
         sg.Popup(f"Połączono z {NBP_URL} - status OK")
+    elif status_nbp == -999:
+        sg.Popup(f"Brak interentu - zweryfikuja połączenie {NBP_URL} - sprawdź kabelek")
+
     else:
         sg.Popup(f"Brak internetu - zweryfikuja połączenie {NBP_URL}- code: {status_nbp}")
 

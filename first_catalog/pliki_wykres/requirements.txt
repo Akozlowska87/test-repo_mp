@@ -1,3 +1,4 @@
 requests==2.28.2
 SnakeMD==0.12.1
 PySimpleGUI==4.60.4
+matplotlib

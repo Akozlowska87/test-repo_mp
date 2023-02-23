@@ -1,3 +1,4 @@
+# https://stackoverflow.com/questions/16511337/correct-way-to-try-except-using-python-requests-module
 try:
     #sprawdzenie
     aa = "a" + q

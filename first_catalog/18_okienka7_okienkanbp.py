@@ -7,6 +7,7 @@ import os
 from secrets import token_urlsafe
 from pathlib import Path
 from datetime import date, timedelta
+import matplotlib.pyplot as plt
 
 TEMP_DIR = "pliki_tymczasowe"
 NBP_URL= "https://api.nbp.pl/"
@@ -19,8 +20,23 @@ def init_dir():
 
 def generuj_dokument(code, start_date, end_date=TODAY_ISO):
     plik = f"{TEMP_DIR}/{token_urlsafe(8)}"
+    wykres_png = f"{plik}.png"
+    tytul_wykresu = f"Wykres waluty {code} z data od {start_date} do {end_date}"
     url_address = f"http://api.nbp.pl/api/exchangerates/rates/A/{code}/{start_date}/{end_date}/"
+    kursy = []
+    req_get = requests.get(url_address)
+    dane = req_get.json()
+    for dane_z_dnia in dane['rates']:
+        kursy.append(dane_z_dnia['mid'])
+    X = [x for x in range(len(kursy))]
+    plt.plot(X, kursy)
+    plt.grid()
+    plt.title(tytul_wykresu)
+    # plt.show()
+    plt.savefig(wykres_png )
+
     plik_dokument = snakemd.new_doc(plik)
+    plik_dokument.add_header(tytul_wykresu)
     try:
         plik_dokument.output_page()
     except Exception as e:
@@ -68,9 +84,8 @@ while True:
     if event == "OK":
         waluta = values[0].upper()
         # https://docs.python.org/3/library/datetime.html#examples-of-usage-timedelta
-
         data_poczatkowa = TODAY - timedelta(int(values[1]))
-        generuj_dokument()
+        generuj_dokument(waluta, data_poczatkowa.isoformat())
 
     if event == "Inna":
         test_inna()

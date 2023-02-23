@@ -1,5 +1,5 @@
 import requests
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt # https://matplotlib.org/3.5.3/api/_as_gen/matplotlib.pyplot.html
 
 table = "A"
 code = "EUR"
@@ -22,4 +22,5 @@ plt.plot(X,kursy)
 # plt.bar(X,kursy)
 # plt.barh(kursy, X)
 plt.grid()
+plt.title(f"Wykres waluty {code} z data od {startDate} do {endDate}")
 plt.show()

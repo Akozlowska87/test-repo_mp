@@ -8,6 +8,7 @@ from secrets import token_urlsafe
 from pathlib import Path
 from datetime import date, timedelta
 from shutil import copyfile
+from shutil import rmtree
 import matplotlib.pyplot as plt
 
 TEMP_DIR = "pliki_tymczasowe"
@@ -78,9 +79,6 @@ def tworz_docx(token_plik):
         sg.popup_error("Zainstaluj pandoc")
         return False
 
-def clean_tmp_dir(directory):
-    pass
-
 # mozna tak, ale można inaczej - przenoszenie dokumentu do właściwego katalogu
 # def fl_copy(source_file, destination_file)
 #     ret = copyfile(source_file, destination_file)
@@ -123,7 +121,10 @@ while True:
             except Exception as e:
                 print(f"Copy error - {e}")
             #czyścimy tymczasowy katalog
-            clean_tmp_dir(TEMP_DIR)
+            try:
+                rmtree(TEMP_DIR, ignore_errors=True)
+            except Exception as e:
+                print(f"Clean error - {e}")
 
         else:
             sg.popup_error("Błąd")

@@ -10,7 +10,7 @@ zmienna_m = 5
 
 
 def generate_token():
-    new_token = token_hex(60)
+    new_token = token_hex(12)
     print(new_token)
     return new_token
 

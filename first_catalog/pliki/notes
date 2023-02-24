@@ -24,3 +24,6 @@ https://diode.zone/c/filmy_programuj_w_zespole/video-playlists
 https://hackmd.io/?nav=overview - web edytować pliki markdown
 https://www.snakemd.io/en/latest/usage/ - biblioteka dla python generować dokumenty markdown
 pandoc.org - narzedzie do konwersji MD -> docx (konwersja uniwersalna wszytskiego na wszytsko)
+
+bazy danych -> https://sqlalchemy.org
+specyfikacja dla flaska -> https://flask.palletsprojects.com/en/2.2.x/

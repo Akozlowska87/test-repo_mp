@@ -3,3 +3,4 @@ SnakeMD==0.12.1
 PySimpleGUI==4.60.4
 matplotlib
 datetime
+pyinstaller

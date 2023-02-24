@@ -1,4 +1,7 @@
 from flask import Flask
+
+DATABASE = "funkcje_dodatkowe/users.db"
+
 from funkcje_dodatkowe.baza_danych import generate_token
 from funkcje_dodatkowe.send_email_smarthost import mail_report
 from datetime import datetime
@@ -6,6 +9,8 @@ from funkcje_dodatkowe.baza_danych import create_user_record
 
 app = Flask("moja_apka)")
 zmienna_m = 4
+
+
 @app.route("/") #dekorator w python
 def main_page():
     return "<H1> Welcome</H1>"
@@ -32,7 +37,8 @@ def username(value):
         if ret == False:
             print(ret_value)
         if ret == True:
-            create_user_record(value, new_token)
+            retdb = create_user_record(DATABASE, value, new_token)
+            print(f"Return - {retdb}")
     return html
 
 app.run()

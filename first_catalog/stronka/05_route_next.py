@@ -6,6 +6,7 @@ from funkcje_dodatkowe.baza_danych import generate_token
 from funkcje_dodatkowe.send_email_smarthost import mail_report
 from datetime import datetime
 from funkcje_dodatkowe.baza_danych import create_user_record
+from funkcje_dodatkowe.baza_danych import check_mail
 
 app = Flask("moja_apka)")
 zmienna_m = 4
@@ -45,7 +46,10 @@ def username(value):
 def username_click(mail, value):
     html = f"""
     <h1>A jednak kliknięto</h1>
-    Dla: {mail} - Wartość hash: {value}
+    Dla: {mail} - Wartość hash: {value} <hr>
     """
+    sprawdzono = check_mail(DATABASE, mail, value)
+    html += f"Czy się zgadza = {sprawdzono}"
+    return html
 
 app.run()

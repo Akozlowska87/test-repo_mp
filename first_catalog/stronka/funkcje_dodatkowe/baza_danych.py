@@ -28,3 +28,25 @@ def create_user_record(db, user, token):
     else:
         return False
 
+def check_mail(db, mail, token):
+    table = "userdata"
+    if os.path.exists(db):
+        connection = connect(db)
+        cursor = connection.cursor()
+        result = cursor.execute(f"SELECT * FROM {table} WHERE token=?", (token,))
+        rekordy = result.fetchall()
+        #print("--->", len(rekordy), rekordy)
+        if len(rekordy) != 1:
+            connection.close()
+            return False
+        _,db_mail,db_token = rekordy[0]
+        if db_mail == mail and db_token == token:
+            ret = True
+        else:
+            ret = False
+
+        connection.close()
+        return ret
+    else:
+        return False
+

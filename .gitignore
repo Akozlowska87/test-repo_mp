@@ -5,6 +5,7 @@ __pycache__/
 
 first_catalog/pliki/pliki_generowne
 first_catalog/pliki_tymczasowe
+first_catalog/stronka/funkcje_dodatkowe/users.db
 
 # C extensions
 *.so

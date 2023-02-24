@@ -2,7 +2,7 @@ from flask import Flask
 from funkcje_dodatkowe.baza_danych import generate_token
 
 app = Flask("moja_apka)")
-
+zmienna_m = 4
 @app.route("/") #dekorator w python
 def main_page():
     return "<H1> Welcome</H1>"
